@@ -1,0 +1,15 @@
+/*метка внутристраничной ссылки*/
+.trumbowyg-editor[contenteditable=true] .in-page-label::before {
+  display: inline-flex;
+  position: relative;
+  max-width: 0;
+  top: -0.9em;
+  font-size: 0.8em;
+  color: orangered;
+  content: attr(id);
+}
+
+.ipl-plugin-validation-text {
+  color:crimson;
+  min-height: 2em;
+}
