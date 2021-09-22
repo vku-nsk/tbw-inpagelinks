@@ -31,10 +31,10 @@ function pluginStrings() {
   };
 }
 
-function WarnDlg(content, title = 'Warning') {
-  const $modal = $('.trumbowyg-editor').trumbowyg('openModal', {
-    title,
-    content,
+function WarnDlg(content, title) {
+  var $modal = $('.trumbowyg-editor').trumbowyg('openModal', {
+    title: title,
+    content: content,
   });
   // remove Confirm button
   $modal.find('.trumbowyg-modal-box .trumbowyg-modal-button.trumbowyg-modal-submit').remove();
@@ -55,7 +55,7 @@ function checkLabelName(trumbowyg, lbl) {
   if (!lbl.charAt(0).match(/^[a-z]+$/)) {
     return trumbowyg.lang.warnNameFirstNotLetter;
   }
-  const existingLabels = $('.trumbowyg-editor .in-page-label').map(function () {
+  var existingLabels = $('.trumbowyg-editor .in-page-label').map(function () {
     return $(this).attr('id');
   });
   if ($.inArray(lbl, existingLabels) !== -1) {
@@ -69,7 +69,7 @@ function clearvalidationinfo() {
 }
 
 function CreateLabelDlg(trumbowyg, succsessCallback ) {
-  let contentHtml=
+  var contentHtml=
     '<div class="trumbowyg-input-row">'
       + '<div class="trumbowyg-input-infos">'
         + '<label for="lbl0000Name">'
@@ -82,14 +82,14 @@ function CreateLabelDlg(trumbowyg, succsessCallback ) {
     + '</div>'
     + '<div class="ipl-plugin-validation-text"></div>';
 
-  const $modal = $('.trumbowyg-editor').trumbowyg('openModal', {
+  var $modal = $('.trumbowyg-editor').trumbowyg('openModal', {
     title: trumbowyg.lang.createLabelDlgTitle,
     content: contentHtml
   });
   
   $modal.on('tbwconfirm', function(e){
-    const inputText=$modal.find("#lbl0000Name").val();
-    const checkNameInfo=checkLabelName(trumbowyg, inputText);
+    var inputText=$modal.find("#lbl0000Name").val();
+    var checkNameInfo=checkLabelName(trumbowyg, inputText);
     if(checkNameInfo) {
       $modal.find(".ipl-plugin-validation-text").text(checkNameInfo);
       return;
@@ -130,7 +130,7 @@ function findNodeForCreateLabel(trwRange) {
   if (!trwRange) {
     return null;
   }
-  let nodeForLabel = trwRange.commonAncestorContainer.parentElement;
+  var nodeForLabel = trwRange.commonAncestorContainer.parentElement;
   if (nodeForLabel && isNodeAvailForLabel(nodeForLabel)) { // для учёта LI
     return nodeForLabel;
   }
@@ -150,18 +150,18 @@ function findNodeForCreateLabel(trwRange) {
 
     $.extend(true, $.trumbowyg, pluginStrings() );
     // Plugin default options
-    const defaultOptions = {
+    var defaultOptions = {
     };
 
     function buildDropdown(trumbowyg) {
-      const dropdown = [];
-      const itemCreName = 'in-page-label-create';
-      const itemCreateDef = {
+      var dropdown = [];
+      var itemCreName = 'in-page-label-create';
+      var itemCreateDef = {
         text: trumbowyg.lang.createLabel,
         hasIcon: false,
         fn: function () {
           trumbowyg.saveRange();
-          let nodeForLabel = findNodeForCreateLabel(trumbowyg.range);
+          var nodeForLabel = findNodeForCreateLabel(trumbowyg.range);
           if (nodeForLabel) {
             CreateLabelDlg(trumbowyg,
               function (labelId) {
@@ -175,14 +175,14 @@ function findNodeForCreateLabel(trwRange) {
       };
       trumbowyg.addBtnDef(itemCreName, itemCreateDef);
       dropdown.push(itemCreName);
-      const itemRemoveName = 'in-page-label-remove';
-      const itemRemoveDef = {
+      var itemRemoveName = 'in-page-label-remove';
+      var itemRemoveDef = {
         text: trumbowyg.lang.removeLabel,
         hasIcon: false,
         fn: function fn() {
           trumbowyg.saveRange();
           if (!trumbowyg.range) { return; }
-          let nodeToRemoveLabel = trumbowyg.range.commonAncestorContainer.parentElement;
+          var nodeToRemoveLabel = trumbowyg.range.commonAncestorContainer.parentElement;
           // eslint-disable-next-line max-len
           if (!(nodeToRemoveLabel && isNodeAvailForLabel(nodeToRemoveLabel))) { // для учёта LI
             // eslint-disable-next-line max-len
@@ -210,7 +210,7 @@ function findNodeForCreateLabel(trwRange) {
             trumbowyg.o.plugins.inpageLabels = $.extend(true, {},
               defaultOptions,
               trumbowyg.o.plugins.inpageLabels || {});
-            const inPageLabelBtnDef = {
+            var inPageLabelBtnDef = {
               dropdown: buildDropdown(trumbowyg),
               text: '#',
               title: trumbowyg.lang.inpageLabels,
