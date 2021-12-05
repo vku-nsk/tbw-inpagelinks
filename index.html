@@ -11,8 +11,8 @@
 </head>
 <body>
   <h2>Trumbowyg editor</h2>
-  <button id="tbwButton1" type="button" onclick="startTbw()">Start editing</button>
-  <button id="tbwButton2" type="button" onclick="stopTbw()">Stop editing</button>
+  <button id="tbwButton1" type="button" onclick="startTbw()">Edit</button>
+  <button id="tbwButton2" type="button" onclick="stopTbw()">View</button>
   <div class="text-container">
   <div id="tbw-editor" >
 
@@ -41,6 +41,7 @@
         lang: navigator.language.split('-', 1)[0],
         btns: [
           ["viewHTML"],
+          ["undo", "redo"],
           ["inpageLabels"],
           ["historyUndo", "historyRedo"],
           ["removeformat"],
