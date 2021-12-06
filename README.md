@@ -13,7 +13,6 @@ Then you can use the new button definition ```inpageLabels```
 Be sure to include ```link``` button as well
 ```
 $('#tbw-editor').trumbowyg({
-  lang: navigator.language.split('-', 1)[0],
   btns: [
     ["inpageLabels"],
     ["link"],
