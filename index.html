@@ -10,41 +10,53 @@
   <title>Document</title>
 </head>
 <body>
-  <h2>Trumbowyg editor</h2>
+  <h2>tbw-inpagelinks plugin for Trumbowyg editor</h2>
+  <p>Note: text below is intentionally placed in a small box.</p>
   <button id="tbwButton1" type="button" onclick="startTbw()">Edit</button>
   <button id="tbwButton2" type="button" onclick="stopTbw()">View</button>
+  <hr />
   <div class="text-container">
     <div id="tbw-editor" >
-      <h2 id="start" class="in-page-label">Text header</h2>
-      <p><a href="#end" title="go to the last linelast">Jump to the end of the text</a><br></p><p><a href="#ph2" title="Jump to #ph2">Jump to paragraph labeled with ph2 label</a><br></p><p><a href="#note1" title="jump to list item 1">View note 1</a>&nbsp;<a href="#note3" title="jump to note 3">View note 3</a><br></p>
-      <p>line 1</p>
-      <p>line 2</p>
-      <p>line 2</p>
-      <p>line 4</p>
-      <p>line 5</p>
-      <p>line 6</p>
-      <p>line 7</p>
+      <h2 id="start" class="in-page-label">Use of the tbw-inpagelinks plugin</h2>
+      <p>You can use above buttons to switch edit mode on or off.
+        In edit mode the plugin creates <img src="btn.png" alt="manage in-page links button"> button on <strong>Trumbowyg</strong> panel.
+        The button has dropdown menu with <strong>Create</strong> and <strong>Remove</strong> items.
+      </p>
+      <br>
+      <h3>How to</h3>
+      <p><a href="#n1" title="jump to &quot;creating a label&quot;">Create a label</a>&nbsp;&nbsp;&nbsp;<a href="#n2" title="jump to &quot;use of a label&quot;">Use a label</a>&nbsp;&nbsp;&nbsp;<a href="#n3" title="jump to &quot;removing a label&quot;">Remove a lable</a><br>
+      </p>
+      <br>
       <ul>
-        <li id="note1" class="in-page-label"><strong>Note 1</strong><br>Keep in mind this thing</li>
-        <li><strong>Note 2</strong><br>Keep in mind this thing also</li>
-        <li class="in-page-label" id="note3"><strong>Note 3</strong><br>And never forget this</li>
+        <li id="n1" class="in-page-label"><strong>Creating a label</strong><br>
+          The tag to be labeled is determined by finding the nearest permitted tag from the current caret position.
+          Permitted tags are: <strong>li</strong>, <strong>h6</strong>-<strong>h1</strong>, <strong>p</strong>.
+          User provides a name for label with dialog.
+          Provided name is used to set the <strong>id</strong> attribute of the tag.
+          As there are certain constraints on <strong>id</strong> attribute value, user input is validated.
+          The labeling tag also receives CSS class <strong>.in-page-label</strong>.
+          This class determines the appearance of in-page labels in edit mode.
+          By default label is shown as a small superscript text above the tag.
+        </li>
+        <br>
+        <li id="n2" class="in-page-label"><strong>Use of a label</strong><br>
+          To create a link to a labeled tag use the "Insert link" dialog.
+          You should enter the label name prefixed with <strong>#</strong> symbol in the URL field of dialog.
+        </li>
+        <br>
+        <li class="in-page-label" id="n3"><strong>Removing a label</strong><br>
+          The Remove command finds the nearest permitted tag from the current caret position. 
+          If tag found and it has CSS class <strong>.in-page-label</strong>, the class as well as the <strong>id</strong> attribute are removed.
+        </li>
       </ul>
-      <p>line 7</p>
-      <p id="ph2" class="in-page-label"><strong>Another paragrph</strong></p>
-      <p>line 8</p>
-      <p>line 9</p>
-      <p>line 10</p>
-      <p>line 11</p>
-      <p>line 12</p>
-      <p>line 13</p>
-      <p id="end" class="in-page-label">The Last Line&nbsp;&nbsp;<a href="#start" title="jump to the first header">Back to the text header</a></p>      
+      <br>
+      <p id="end" class="in-page-label">The End of The Topic&nbsp;&nbsp;<a href="#start" title="jump to the top">Back to the top</a></p>      
     </div>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Trumbowyg/2.25.1/trumbowyg.min.js" integrity="sha512-t4CFex/T+ioTF5y0QZnCY9r5fkE8bMf9uoNH2HNSwsiTaMQMO0C9KbKPMvwWNdVaEO51nDL3pAzg4ydjWXaqbg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Trumbowyg/2.25.1/langs/ru.min.js" integrity="sha512-cKTAipSrAVs79R0Io6eW1CtWQd4HSQYGPBl4mwrE0UOKTIZMeTKvQIzG3YlboeAD4OZg2osk8QQ6Sft+H2/QBQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <script src="inpagelinks/trumbowyg.inpagelinks.js"></script>
-  <script src="app.js"></script>
   <script>
     function startTbw() {
       $.extend(true, $.trumbowyg, {
