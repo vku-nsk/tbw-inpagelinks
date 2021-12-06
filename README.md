@@ -9,7 +9,7 @@
 <-- Import Inpagelinks plugin... -->
 <script src="inpagelinks/trumbowyg.inpagelinks.min.js"></script>
 ```
-Then you can use the new button definition ```inpageLabels```
+Then you can use the new button definition ```inpageLabels```.
 Be sure to include ```link``` button as well
 ```
 $('#tbw-editor').trumbowyg({
