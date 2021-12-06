@@ -17,4 +17,5 @@ $('#tbw-editor').trumbowyg({
     ["inpageLabels"],
     ["link"],
   ]
+});  
 ```
