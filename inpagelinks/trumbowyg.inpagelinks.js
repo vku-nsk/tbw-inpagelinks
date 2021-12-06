@@ -36,7 +36,7 @@ function WarnDlg(content, title) {
     title: title,
     content: content,
   });
-  // remove Confirm button
+  // Nothing to do with Confirm button. Remove it.
   $modal.find('.trumbowyg-modal-box .trumbowyg-modal-button.trumbowyg-modal-submit').remove();
   
   $modal.on('tbwcancel', function(e) {
@@ -102,44 +102,15 @@ function CreateLabelDlg(trumbowyg, succsessCallback ) {
   });
 }
 
-function upToEditorChild(node) {
-  if (!node) {
-    return null;
-  }
-  if (!node.parentElement) {
-    return null;
-  }
-  if (node.parentElement.classList.contains('trumbowyg-editor')) {
-    return node;
-  }
-  return upToEditorChild(node.parentElement);
-}
-
-function isNodeAvailForLabel(node) {
-  return (node.nodeName === 'P'
-    || node.nodeName === 'LI'
-    || node.nodeName === 'H1'
-    || node.nodeName === 'H2'
-    || node.nodeName === 'H3'
-    || node.nodeName === 'H4'
-    || node.nodeName === 'H5'
-    || node.nodeName === 'H6');
-}
-
-function findNodeForCreateLabel(trwRange) {
+function findPermittedNode(trwRange) {
   if (!trwRange) {
     return null;
   }
-  var nodeForLabel = trwRange.commonAncestorContainer.parentElement;
-  if (nodeForLabel && isNodeAvailForLabel(nodeForLabel)) { // для учёта LI
-    return nodeForLabel;
-  }
-  nodeForLabel = upToEditorChild(trwRange.commonAncestorContainer.parentElement);
-  if (!nodeForLabel) {
-    return null;
-  }
-  if (isNodeAvailForLabel(nodeForLabel)) {
-    return nodeForLabel;
+  var permittedTags=['li','h6','h5','h4','h3','h2','h1','p'];
+  for (var i=0; i<permittedTags.length; i++) {
+    var nodeToLabel=trwRange.commonAncestorContainer.parentElement.closest(permittedTags[i]);
+    if(nodeToLabel)
+      return nodeToLabel;   
   }
   return null;
 }
@@ -161,7 +132,7 @@ function findNodeForCreateLabel(trwRange) {
         hasIcon: false,
         fn: function () {
           trumbowyg.saveRange();
-          var nodeForLabel = findNodeForCreateLabel(trumbowyg.range);
+          var nodeForLabel = findPermittedNode(trumbowyg.range);
           if (nodeForLabel) {
             CreateLabelDlg(trumbowyg,
               function (labelId) {
@@ -182,12 +153,7 @@ function findNodeForCreateLabel(trwRange) {
         fn: function fn() {
           trumbowyg.saveRange();
           if (!trumbowyg.range) { return; }
-          var nodeToRemoveLabel = trumbowyg.range.commonAncestorContainer.parentElement;
-          // eslint-disable-next-line max-len
-          if (!(nodeToRemoveLabel && isNodeAvailForLabel(nodeToRemoveLabel))) { // для учёта LI
-            // eslint-disable-next-line max-len
-            nodeToRemoveLabel = upToEditorChild(trumbowyg.range.commonAncestorContainer.parentElement);
-          }
+          var nodeToRemoveLabel = findPermittedNode(trumbowyg.range);
           if (nodeToRemoveLabel && nodeToRemoveLabel.classList.contains('in-page-label')) {
             nodeToRemoveLabel.classList.remove('in-page-label');
             nodeToRemoveLabel.removeAttribute('id');

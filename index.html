@@ -15,13 +15,36 @@
   <button id="tbwButton2" type="button" onclick="stopTbw()">View</button>
   <div class="text-container">
     <div id="tbw-editor" >
+      <h2 id="start" class="in-page-label">Text header</h2>
+      <p><a href="#end" title="go to the last linelast">Jump to the end of the text</a><br></p><p><a href="#ph2" title="Jump to #ph2">Jump to paragraph labeled with ph2 label</a><br></p><p><a href="#note1" title="jump to list item 1">View note 1</a>&nbsp;<a href="#note3" title="jump to note 3">View note 3</a><br></p>
+      <p>line 1</p>
+      <p>line 2</p>
+      <p>line 2</p>
+      <p>line 4</p>
+      <p>line 5</p>
+      <p>line 6</p>
+      <p>line 7</p>
+      <ul>
+        <li id="note1" class="in-page-label"><strong>Note 1</strong><br>Keep in mind this thing</li>
+        <li><strong>Note 2</strong><br>Keep in mind this thing also</li>
+        <li class="in-page-label" id="note3"><strong>Note 3</strong><br>And never forget this</li>
+      </ul>
+      <p>line 7</p>
+      <p id="ph2" class="in-page-label"><strong>Another paragrph</strong></p>
+      <p>line 8</p>
+      <p>line 9</p>
+      <p>line 10</p>
+      <p>line 11</p>
+      <p>line 12</p>
+      <p>line 13</p>
+      <p id="end" class="in-page-label">The Last Line&nbsp;&nbsp;<a href="#start" title="jump to the first header">Back to the text header</a></p>      
     </div>
-  </div>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Trumbowyg/2.25.1/trumbowyg.min.js" integrity="sha512-t4CFex/T+ioTF5y0QZnCY9r5fkE8bMf9uoNH2HNSwsiTaMQMO0C9KbKPMvwWNdVaEO51nDL3pAzg4ydjWXaqbg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Trumbowyg/2.25.1/langs/ru.min.js" integrity="sha512-cKTAipSrAVs79R0Io6eW1CtWQd4HSQYGPBl4mwrE0UOKTIZMeTKvQIzG3YlboeAD4OZg2osk8QQ6Sft+H2/QBQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <script src="inpagelinks/trumbowyg.inpagelinks.js"></script>
+  <script src="app.js"></script>
   <script>
     function startTbw() {
       $.extend(true, $.trumbowyg, {
