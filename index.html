@@ -41,12 +41,12 @@
         <br>
         <li id="n2" class="in-page-label"><strong>Use of a label</strong><br>
           To create a link to a labeled tag use the "Insert link" dialog.
-          You should enter the label name prefixed with <strong>#</strong> symbol in the URL field of dialog.
+          You should enter the label name prefixed with <strong>#</strong> symbol in the URL field of the dialog.
         </li>
         <br>
         <li class="in-page-label" id="n3"><strong>Removing a label</strong><br>
           The Remove command finds the nearest permitted tag from the current caret position. 
-          If tag found and it has CSS class <strong>.in-page-label</strong>, the class as well as the <strong>id</strong> attribute are removed.
+          If the tag is found and it has CSS class <strong>.in-page-label</strong>, the class as well as the <strong>id</strong> attribute are removed.
         </li>
       </ul>
       <br>
@@ -72,7 +72,7 @@
       });
 
       $('#tbw-editor').trumbowyg({
-        lang: navigator.language.split('-', 1)[0],
+        lang: navigator.language,
         btns: [
           ["viewHTML"],
           ["undo", "redo"],
