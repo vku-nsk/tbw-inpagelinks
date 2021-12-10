@@ -115,6 +115,18 @@ function findPermittedNode(trwRange) {
   return null;
 }
 
+function updateLinks(trumbowyg, label)
+{
+  var lblHash='#'+label;
+  var selector='a[href$=' + label + ']'; 
+  var ancors=trumbowyg.doc.body.querySelectorAll(selector);
+  for (var index = 0; index < ancors.length; index++) {
+    if(ancors[index].hash === lblHash){
+      ancors[index].replaceWith(ancors[index].innerText);
+    }
+  }
+}
+
 (
   function ($) {
     'use strict';
@@ -155,9 +167,12 @@ function findPermittedNode(trwRange) {
           if (!trumbowyg.range) { return; }
           var nodeToRemoveLabel = findPermittedNode(trumbowyg.range);
           if (nodeToRemoveLabel && nodeToRemoveLabel.classList.contains('in-page-label')) {
+            var label=nodeToRemoveLabel.getAttribute('id');
             nodeToRemoveLabel.classList.remove('in-page-label');
             nodeToRemoveLabel.removeAttribute('id');
-          }
+            updateLinks(trumbowyg, label);
+            trumbowyg.syncCode();
+            trumbowyg.$c.trigger('tbwchange');          }
         }
       };
       trumbowyg.addBtnDef(itemRemoveName, itemRemoveDef);
