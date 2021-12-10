@@ -1,0 +1,16 @@
+/*in-page label in edit mode*/
+.trumbowyg-editor[contenteditable=true] .in-page-label::before {
+  display: inline-flex;
+  position: relative;
+  max-width: 0;
+  top: -1em;
+  font-size: small;
+  color: orangered;
+  content: attr(id);
+}
+
+/* validation text*/
+.ipl-plugin-validation-text {
+  color: crimson;
+  min-height: 2em;
+}

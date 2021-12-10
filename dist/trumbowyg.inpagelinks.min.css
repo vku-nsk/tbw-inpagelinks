@@ -1,0 +1,1 @@
+.trumbowyg-editor[contenteditable=true] .in-page-label::before{display:inline-flex;position:relative;max-width:0;top:-1em;font-size:small;color:#ff4500;content:attr(id)}.ipl-plugin-validation-text{color:#dc143c;min-height:2em}
