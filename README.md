@@ -1,4 +1,5 @@
 # Inpagelinks plugin for [Trumbowyg HTML editor](https://alex-d.github.io/Trumbowyg//)
+ The plugin creates button !(btn.png) on Trumbowyg panel. The button has dropdown menu with Create and Remove items.
 ## [Live demo](https://vku-nsk.github.io/tbw-inpagelinks//)
 ## Usage
 ```
