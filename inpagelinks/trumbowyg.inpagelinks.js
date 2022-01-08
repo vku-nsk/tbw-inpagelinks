@@ -31,16 +31,16 @@ function pluginStrings() {
   };
 }
 
-function WarnDlg(content, title) {
-  var $modal = $('.trumbowyg-editor').trumbowyg('openModal', {
-    title: title,
-    content: content,
-  });
+function WarnDlg(trumbowyg, content, title) {
+  var $modal = trumbowyg.openModal(
+    title,
+    content
+  );
   // Nothing to do with Confirm button. Remove it.
   $modal.find('.trumbowyg-modal-box .trumbowyg-modal-button.trumbowyg-modal-submit').remove();
   
-  $modal.on('tbwcancel', function(e) {
-      $('.trumbowyg-editor').trumbowyg('closeModal');
+  $modal.one('tbwcancel', function(e) {
+      trumbowyg.closeModal();
   });
 
 }
@@ -82,23 +82,29 @@ function CreateLabelDlg(trumbowyg, succsessCallback ) {
     + '</div>'
     + '<div class="ipl-plugin-validation-text"></div>';
 
-  var $modal = $('.trumbowyg-editor').trumbowyg('openModal', {
-    title: trumbowyg.lang.createLabelDlgTitle,
-    content: contentHtml
-  });
+  var $modal = trumbowyg.openModal(
+    trumbowyg.lang.createLabelDlgTitle,
+    contentHtml
+  );
   
-  $modal.on('tbwconfirm', function(e){
+  var removeEvHandlers = function () {
+    $modal.off('.inpagelinks');  
+  } 
+
+  $modal.on('tbwconfirm.inpagelinks', function(e){
     var inputText=$modal.find("#lbl0000Name").val();
     var checkNameInfo=checkLabelName(trumbowyg, inputText);
     if(checkNameInfo) {
       $modal.find(".ipl-plugin-validation-text").text(checkNameInfo);
       return;
     }
-    $('.trumbowyg-editor').trumbowyg('closeModal');
+    removeEvHandlers();
+    trumbowyg.closeModal();
     succsessCallback(inputText);
   });
-  $modal.on('tbwcancel', function(e){
-      $('.trumbowyg-editor').trumbowyg('closeModal');
+  $modal.on('tbwcancel.inpagelinks', function(e){
+    removeEvHandlers();
+    trumbowyg.closeModal();
   });
 }
 
@@ -115,8 +121,19 @@ function findPermittedNode(trwRange) {
   return null;
 }
 
-(
-  function ($) {
+function updateLinks(trumbowyg, label)
+{
+  var lblHash='#'+label;
+  var selector='a[href$=' + label + ']'; 
+  var ancors=trumbowyg.doc.body.querySelectorAll(selector);
+  for (var index = 0; index < ancors.length; index++) {
+    if(ancors[index].hash === lblHash){
+      ancors[index].replaceWith(ancors[index].innerText);
+    }
+  }
+}
+
+(function ($) {
     'use strict';
 
     $.extend(true, $.trumbowyg, pluginStrings() );
@@ -141,7 +158,7 @@ function findPermittedNode(trwRange) {
               });
           }   
           else
-            WarnDlg(trumbowyg.lang.warnBadCaretPos, trumbowyg.lang.createLabelDlgTitle);
+            WarnDlg(trumbowyg, trumbowyg.lang.warnBadCaretPos, trumbowyg.lang.createLabelDlgTitle);
         },
       };
       trumbowyg.addBtnDef(itemCreName, itemCreateDef);
@@ -155,8 +172,12 @@ function findPermittedNode(trwRange) {
           if (!trumbowyg.range) { return; }
           var nodeToRemoveLabel = findPermittedNode(trumbowyg.range);
           if (nodeToRemoveLabel && nodeToRemoveLabel.classList.contains('in-page-label')) {
+            var label=nodeToRemoveLabel.getAttribute('id');
             nodeToRemoveLabel.classList.remove('in-page-label');
             nodeToRemoveLabel.removeAttribute('id');
+            updateLinks(trumbowyg, label);
+            trumbowyg.syncCode();
+            trumbowyg.$c.trigger('tbwchange');          
           }
         }
       };
